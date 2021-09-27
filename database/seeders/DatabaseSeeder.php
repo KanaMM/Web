@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Project;
+use App\Models\Status;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('statuses')->insert(array(
+            array(
+                'title' => 'Черновик',
+            ),
+            array(
+                'title' => 'Ожидает рассмотрения',
+            ),
+            array(
+                'title' => 'В работе',
+            ),
+            array(
+                'title' => 'Отклонена',
+            ),
+            array(
+                'title' => 'На доработку',
+            ),
+            array(
+                'title' => 'Исполнена',
+            ),
+        ));
     }
 }
