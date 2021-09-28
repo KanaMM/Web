@@ -1,32 +1,25 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\OfferController;
+use App\Http\Controllers\Api\StatusController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProjectController;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('projects')->group(function() {
+    Route::get('/', [ProjectController::class, 'index']);
+    Route::get('/{project}', [ProjectController::class, 'show']);
+    Route::post('/store', [ProjectController::class, 'store']);
+    Route::post('/update/{project}', [ProjectController::class, 'update']);
+    Route::post('/delete/{project}', [ProjectController::class, 'delete']);
 });
 
-//Показ проекта
-    Route::get('projects', [ProjectController::class, 'index']);
-    Route::get('/projects/{project}', [ProjectController::class, 'show']);
+Route::prefix('offers')->group(function() {
+    Route::get('/{project}', [OfferController::class, 'index']);
+    Route::post('/offers/store', [OfferController::class, 'store']);
+    Route::post('/offers/update/{offer}', [OfferController::class, 'update']);
+});
 
-//Создание проекта
-    Route::post('/store', [ProjectController::class, 'store']);
+Route::prefix('statuses')->group(function () {
+    Route::get('/', [StatusController::class, 'index']);
+});
 
-//Обновление проекта
-    Route::post('/update/{project}', [ProjectController::class, 'update']);
-
-//Удаление проекта
-    Route::post('/delete/{project}', [ProjectController::class, 'delete']);

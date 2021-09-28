@@ -19,4 +19,14 @@ class Offer extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }
